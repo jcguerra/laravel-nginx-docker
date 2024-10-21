@@ -3,8 +3,10 @@ Docker with Nginx for Laravel
 ___
 Un flujo de trabajo Docker Compose bastante simplificado que configura una red LEMP de contenedores para el desarrollo local de Laravel. Puedes ver el artículo completo que inspiró este repo. [Enlace](https://dev.to/aschmelyun/the-beauty-of-docker-for-local-laravel-development-13c0)
 
-Uso
-___
+Nginx, MySQL, PHP, Redis, Grafana, Composer, NPM, Artisan y Mailhog
+
+## Uso
+
 Para empezar, asegúrese de que tiene [Docker instalado](https://docs.docker.com/docker-for-mac/install/) en el sistema, y luego clone este repositorio.
 
 Luego, navega en tu terminal hasta el directorio que has clonado, y agrega el proyecto Laravel en una carpeta. Edita el docker-compose.yml cambiando donde dice CARPETA_DEL_PROYECTO por el nombre que le colocaste al proyecto Laravel. 
@@ -28,7 +30,7 @@ Se incluyen tres contenedores adicionales que manejan los comandos de Composer, 
 - `docker-compose run --rm artisan migrate`
 
 ## Problemas de Permisos
-___
+
 Si se encuentra algún problema con los permisos del sistema de archivos mientras entra a su aplicación o ejecuta un comando de contenedor, intente completar uno de los siguientes pasos.
 
 **Si estás usando tu servidor o entorno local como usuario root:**
@@ -47,7 +49,7 @@ Si se encuentra algún problema con los permisos del sistema de archivos mientra
 A continuación, vuelva a ejecutar el comando que se estaba intentando antes, y vea si se soluciona.
 
 ## Almacenamiento MySQL persistente
-___
+
 Por defecto, cada vez que haga un Down de Docker Network, sus datos MySQL serán eliminados después de que los contenedores sean destruidos. Si desea tener datos persistentes que permanezcan después de bajar y volver a subir los contenedores, haga lo siguiente:
 
 1. Crea una carpeta `mysql` en la raíz del proyecto si no existe, junto a las carpetas `docker` y `grafana`.
@@ -59,7 +61,7 @@ volumes:
 ```
 
 ## Compiling Assets
-___
+
 Esta configuración debe ser capaz de compilar assets con [laravel mix](https://laravel-mix.com/) y con [vite](https://vitejs.dev/). Para empezar, primero tiene que añadir ` --host 0.0.0.0` al final del comando dev correspondiente en `package.json`. Así, por ejemplo, con un proyecto Laravel utilizando Vite:
 
 ```json
@@ -77,7 +79,7 @@ A continuación, ejecute los siguientes comandos para instalar sus dependencias 
 Después, se debe ser capaz de utilizar las directivas de `@vite` para habilitar la recarga de módulos en caliente en su aplicación local Laravel.
 
 ## MailHog
-___
+
 A partir de la version 9 de Laravel, utiliza MailHog como la aplicación por defecto para probar el envío de correo electrónico y el trabajo SMTP general durante el desarrollo local. Usando la imagen Docker Hub proporcionada, conseguir una instancia configurada y lista es simple. El servicio se incluye en el archivo `docker-compose.yml`, y se inicia junto con el servidor web y los servicios de base de datos.
 
 Para ver el panel de control y los correos electrónicos que llegan a través del sistema, visite [localhost:8025](http://localhost:8025) después de ejecutar `docker-compose up`.
